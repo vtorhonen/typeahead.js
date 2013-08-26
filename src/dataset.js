@@ -254,14 +254,16 @@ var Dataset = (function() {
     },
 
     getSuggestions: function(query, cb) {
-      var that = this, terms, suggestions, cacheHit = false;
+      var that = this, terms = [], suggestions, cacheHit = false;
 
       // don't do anything until the minLength constraint is met
       if (query.length < this.minLength) {
         return;
       }
 
-      terms = utils.tokenizeQuery(query);
+      utils.each(utils.tokenizeQuery(query), function(i, term) {
+		 terms.push(utils.normalizeToken(term, that.accentMap));
+      });
       suggestions = this._getLocalSuggestions(terms).slice(0, this.limit);
 
       if (suggestions.length < this.limit && this.transport) {
