@@ -30,6 +30,7 @@ var Dataset = (function() {
     this.footer = o.footer;
     this.valueKey = o.valueKey || 'value';
     this.template = compileTemplate(o.template, o.engine, this.valueKey);
+    this.accentMap = o.accentMap;
 
     // used then deleted in #initialize
     this.local = o.local;
@@ -112,6 +113,7 @@ var Dataset = (function() {
     },
 
     _transformDatum: function(datum) {
+      var that = this;
       var value = utils.isString(datum) ? datum : datum[this.valueKey],
           tokens = datum.tokens || utils.tokenizeText(value),
           item = { value: value, tokens: tokens };
@@ -132,7 +134,10 @@ var Dataset = (function() {
 
       // normalize tokens
       item.tokens = utils.map(item.tokens, function(token) {
-        return token.toLowerCase();
+	if(typeof that.accentMap == undefined) {
+	    return token.toLowerCase();
+	}
+        return utils.normalizeToken(token.toLowerCase(), that.accentMap);
       });
 
       return item;
