@@ -136,7 +136,7 @@ var Dataset = (function() {
       item.tokens = utils.map(item.tokens, function(token) {
         if(typeof that.accentMap == undefined) {
           return token.toLowerCase();
-	}
+        }
         return utils.normalizeToken(token.toLowerCase(), that.accentMap);
       });
 
