@@ -159,7 +159,7 @@ var utils = {
   normalizeToken: function(token, accentMap) {
     var ret = "";
     for ( var i = 0; i < token.length; i++ ) {
-	ret += accentMap[ token.charAt(i) ] || token.charAt(i);
+      ret += accentMap[ token.charAt(i) ] || token.charAt(i);
     }
     return ret;
   },

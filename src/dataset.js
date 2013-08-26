@@ -134,8 +134,8 @@ var Dataset = (function() {
 
       // normalize tokens
       item.tokens = utils.map(item.tokens, function(token) {
-	if(typeof that.accentMap == undefined) {
-	    return token.toLowerCase();
+        if(typeof that.accentMap == undefined) {
+          return token.toLowerCase();
 	}
         return utils.normalizeToken(token.toLowerCase(), that.accentMap);
       });
@@ -262,7 +262,7 @@ var Dataset = (function() {
       }
 
       utils.each(utils.tokenizeQuery(query), function(i, term) {
-		 terms.push(utils.normalizeToken(term, that.accentMap));
+        terms.push(utils.normalizeToken(term, that.accentMap));
       });
       suggestions = this._getLocalSuggestions(terms).slice(0, this.limit);
 
